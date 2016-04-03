@@ -74,6 +74,7 @@ public:
   void PublishVideo();
   void PublishNavdata(const navdata_unpacked_t &navdata_raw, const ros::Time &navdata_receive_time);
   void PublishOdometry(const navdata_unpacked_t &navdata_raw, const ros::Time &navdata_receive_time);
+  void PublishZEstimation(const nav_msgs::Odometry& odo_msg, int us_dist, const ros::Time& navdata_receive_time);
 
 #define NAVDATA_STRUCTS_HEADER_PUBLIC
 #include <ardrone_autonomy/NavdataMessageDefinitions.h>
@@ -101,6 +102,7 @@ private:
   ros::Publisher imu_pub;
   ros::Publisher mag_pub;
   ros::Publisher odo_pub;
+  ros::Publisher zestimation_pub;
 
   tf::TransformBroadcaster tf_broad;
 

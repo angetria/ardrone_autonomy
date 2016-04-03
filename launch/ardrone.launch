@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- This is a sample lanuch file, please change it based on your needs -->
+<!-- This is a sample launch file, please change it based on your needs -->
 <launch>
     <!-- IPv4 address of your drone -->
     <arg name="ip" default="192.168.1.1" />
@@ -25,6 +25,11 @@
         <param name="ultrasound_freq" value="$(arg freq)" />
         <param name="realtime_navdata" value="true" />
         <param name="realtime_video" value="true" />
+        
+        <!-- Enables messages to be posted for more information -->
+        <param name="enable_navdata_raw_measures" value="true" />
+        <param name="enable_navdata_altitude" value="true" />
+
         <!-- Covariance Values (3x3 matrices reshaped to 1x9)-->
         <rosparam param="cov/imu_la">[0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1]</rosparam>
         <rosparam param="cov/imu_av">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]</rosparam>

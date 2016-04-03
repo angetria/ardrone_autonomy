@@ -53,6 +53,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 #include "ardrone_autonomy/navdata_hdvideo_stream.h"
 #include "ardrone_autonomy/navdata_wifi.h"
 #include "ardrone_autonomy/navdata_zimmu_3000.h"
+#include "ardrone_autonomy/zestimation.h"
 #include <std_msgs/UInt16.h>
 #include <std_msgs/UInt32.h>
 #include <std_msgs/Float32.h>
@@ -172,6 +173,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       mag_pub = node_handle.advertise<geometry_msgs::Vector3Stamped>("ardrone/mag", 200);
 		}
     odo_pub = node_handle.advertise<nav_msgs::Odometry>("ardrone/odometry", 200);
+
+    // z-estimation publisher contains odom message and the measurement from us sensor
+    zestimation_pub = node_handle.advertise<ardrone_autonomy::zestimation>("ardrone/zestimation", 1);
 
 		//-------------------------
 

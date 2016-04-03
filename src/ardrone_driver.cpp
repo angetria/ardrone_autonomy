@@ -717,6 +717,12 @@ void ARDroneDriver::PublishOdometry(const navdata_unpacked_t &navdata_raw, const
     odo_pub.publish(odo_msg);
   }
 
+  // Acquire the raw distance measurement from us sensor
+  int us_dist = navdata_raw.navdata_raw_measures.alt_temp_raw;
+
+  // Publish the odometry plus the measurement from us sensor
+  PublishZEstimation(odo_msg, us_dist, navdata_receive_time);
+
   tf::Vector3 t;
   tf::pointMsgToTF(odo_msg.pose.pose.position, t);
   tf::Quaternion q;
@@ -727,6 +733,20 @@ void ARDroneDriver::PublishOdometry(const navdata_unpacked_t &navdata_raw, const
   tf_odom.setOrigin(t);
   tf_odom.setRotation(q);
   tf_broad.sendTransform(tf_odom);
+}
+
+void ARDroneDriver::PublishZEstimation(const nav_msgs::Odometry& odo_msg, int us_dist, const ros::Time& navdata_receive_time)
+{
+  ardrone_autonomy::zestimation zest_msg;
+
+  zest_msg.header.stamp = navdata_receive_time;
+  zest_msg.odo_msg = odo_msg;
+  zest_msg.us_dist = us_dist;
+
+  if (zestimation_pub.getNumSubscribers() > 0)
+  {
+    zestimation_pub.publish(zest_msg);
+  }
 }
 
 void ControlCHandler(int signal)

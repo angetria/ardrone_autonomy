@@ -6,6 +6,7 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     image_transport
     sensor_msgs
+    nav_msgs
     std_srvs
     tf
     camera_info_manager
@@ -57,10 +58,11 @@ add_message_files(
     navdata_zimmu_3000.msg
     vector21.msg
     vector31.msg
+    zestimation.msg
 )
 
 # Generate added messages and services with any dependencies listed here
-generate_messages(DEPENDENCIES geometry_msgs std_msgs)
+generate_messages(DEPENDENCIES geometry_msgs std_msgs nav_msgs)
 
 catkin_package(
   DEPENDS libsdl-dev
